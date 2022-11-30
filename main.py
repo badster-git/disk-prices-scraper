@@ -302,11 +302,10 @@ def generateDateFilename():
     return f'diskprices-data_{date_time}'
 
 if __name__ == "__main__":
-    print('Scraping, please wait...')
     disk_types_list = getAllDiskTypes()
 
     parser = argparse.ArgumentParser(
-        prog="python main.py", description="Get disk drive information in JSON and CSV format", epilog='If you encounter any errors create an issue here https://github.com/badster-git/libgen-terminal/issues with the error code. Thanks.'
+        prog="python main.py", description="Get disk drive information in JSON and CSV format", epilog='If you encounter any errors create an issue here https://github.com/badster-git/disk-prices-scraper/issues with the error. Thanks.'
     )
 
     # Unknown locales so can't set that option
@@ -314,11 +313,12 @@ if __name__ == "__main__":
 
     parser.add_argument('-t', '--type', action="store", type=str, choices=['tb', 'gb'], default='tb', help='set GB or TB format, uses TB by default')
     parser.add_argument('-c', '--condition',action="store", type=str, choices=['new', 'used', 'all'], help='set condition of drives to scrape, uses all by default', default='all')
-    parser.add_argument('-mi', '--min',action="store", choices=range(1, 9999999),  type=int, help='set minimum drive capacity')
-    parser.add_argument('-ma', '--max',action="store", choices=range(1, 9999999), type=int, help='set maximum drive capacity')
+    parser.add_argument('-mi', '--min',action="store",  type=int, help='set minimum drive capacity')
+    parser.add_argument('-ma', '--max',action="store", type=int, help='set maximum drive capacity')
     parser.add_argument('-dt', '--disk-types',action="store", nargs='*', choices=disk_types_list, help='space separated list of disk types of disks to scrape, uses all by default. Allowed values are '+', '.join(disk_types_list), default=disk_types_list, metavar='')
 
     parsed_args = parser.parse_args()
+    print('Scraping, please wait...')
     args_list = ['locale=us']
     capacity = ''
 
